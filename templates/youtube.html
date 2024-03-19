@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #060037;
+            color: #5bdde4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        nav {
+            background-color: #060037;
+            display: flex;
+            justify-content: flex-start; /* Aligne la barre de navigation à gauche */
+            align-items: center;
+            padding: 10px;
+        }
+
+        nav img {
+            width: 90px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .navbar {
+            color: #05BAC1;
+            padding: 14px 16px;
+            text-decoration: none;
+            margin: 0 5px;
+            position: relative;
+            font-size: 18px; /* Taille de police augmentée */
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #05BAC1;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .navbar.active {
+            color: #05BAC1;
+            border-bottom: 3px solid #05BAC1; /* Ajoute une bordure en bas pour indiquer la page active */
+        }
+
+        .navbar:hover {
+            color: #05BAC1;
+            border-bottom: 3px solid #05BAC1; /* Ajoute une bordure en bas pour indiquer le survol */
+        }
+
+        .content {
+            margin-top: 20px;
+            overflow-y: auto;
+            padding: 10px; /* Ajout d'un padding pour éviter le chevauchement avec la barre de défilement */
+        }
+
+        .poll-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a6c;
+            color: #5bdde4;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .poll-container h1 {
+            font-size: 28px;
+        }
+
+        .poll-container h2 {
+            font-size: 24px;
+            color: #5bdde4;
+        }
+
+        .video-list-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+            max-height: 400px; /* Hauteur maximale pour activer le défilement vertical */
+            overflow-y: auto; /* Activer le défilement vertical lorsque nécessaire */
+        }
+
+        .video-item {
+            width: 48%;
+            margin-bottom: 20px;
+            background-color: #060037;
+            padding: 10px;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .video-item iframe {
+            width: 100%;
+            height: 150px; /* Hauteur ajustée selon vos besoins */
+        }
+
+        .poll-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .true-button,
+        .false-button {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .true-button {
+            background-color: #5bdde4;
+            color: #060037;
+        }
+
+        .false-button {
+            background-color: #1a1a6c;
+            color: #5bdde4;
+        }
+    </style>
+    <title>youtube</title>
+</head>
+<body>
+    <nav>
+        <img src="{{ url_for('static', filename='images/oeilsansfond.png') }}" alt="Logo">
+        <a href="/" class="navbar">Accueil</a>
+        <a href="/video" class="navbar">Votre vidéo</a>
+        <a href="/youtube" class="navbar active">Youtube</a>
+        <a href="/equipe" class="navbar">Notre équipe</a>
+        <a href="/contact" class="navbar">Nous contacter</a>
+        <span class="nav-indicator"></span>
+    </nav>
+
+    <div class="content">
+        <div class="poll-container">
+            <h1 class="team-title">Vidéo youtube sélectionnée</h1>
+            <h2>A votre avis ?</h2>
+            <div class="video-list-container">
+                <!-- Afficher la liste des vidéos youtube les plus vues ici -->
+                {% for video in video_list %}
+                    <div class="video-item">
+                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/{{ video.id }}" frameborder="0" allowfullscreen></iframe>
+                        <p>{{ video.title }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="poll-buttons">
+                <button class="true-button" onclick="submitVote('vraie')">VRAIE</button>
+                <button class="false-button" onclick="submitVote('fausse')">FAUSSE</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitVote(choice) {
+            // Implémentez ici la logique pour traiter le vote de l'utilisateur
+            alert("Vote soumis : " + choice);
+        }
+
+        
+    </script>
+</body>
+</html>

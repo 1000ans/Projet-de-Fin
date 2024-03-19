@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center; /* Centre le contenu de la page */
+            background-color: #060037; /* Couleur de fond */
+            color: #05BAC1; /* Couleur du texte */
+            margin:0;
+            padding:0;
+        }
+
+        nav {
+            background-color: #060037;
+            display: flex;
+            justify-content: flex-start; /* Aligne la barre de navigation à gauche */
+            align-items: center;
+            padding: 10px;
+        }
+
+        nav img {
+            width: 90px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .navbar {
+            color: #05BAC1;
+            padding: 14px 16px;
+            text-decoration: none;
+            margin: 0 5px;
+            position: relative;
+            font-size: 18px; /* Taille de police augmentée */
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #05BAC1;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .navbar.active {
+            color: #05BAC1;
+            border-bottom: 3px solid #05BAC1; /* Ajoute une bordure en bas pour indiquer la page active */
+        }
+
+        .navbar:hover {
+            color: #05BAC1;
+            border-bottom: 3px solid #05BAC1; /* Ajoute une bordure en bas pour indiquer le survol */
+        }
+
+        
+        .content {
+            margin-top: 20px;
+        }
+
+        .team-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a6c;
+            color: #05BAC1;
+            border-radius: 10px;
+            text-align: left; /* Aligne le texte à gauche à l'intérieur du conteneur */
+        }
+
+        .team-container h1 {
+            font-size: 28px;
+        }
+
+        .team-members {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .team-member {
+            width: 48%; /* Ajustez la largeur des membres de l'équipe selon vos besoins */
+            margin-bottom: 20px;
+        }
+
+        .photo-container {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        .info-container {
+            text-align: center;
+        }
+
+        .name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .profession {
+            font-style: italic;
+        }
+
+        .our-history-container {
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 20px;
+            background-color: #060037;
+            color: #05BAC1;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .our-history-container h2 {
+            font-size: 24px;
+            color: #05BAC1;
+        }
+
+        .our-history-text {
+            text-align: justify;
+            margin-top: 10px;
+        }
+    </style>
+    <title>Notre équipe</title>
+</head>
+<body>
+
+    <nav>
+        <img src="{{ url_for('static', filename='images/oeilsansfond.png') }}" alt="Logo">
+        <a href="/" class="navbar">Accueil</a>
+        <a href="/video" class="navbar">Votre vidéo</a>
+        <a href="/youtube" class="navbar">Youtube</a>
+        <a href="/equipe" class="navbar active">Notre équipe</a>
+        <a href="/contact" class="navbar">Nous contacter</a>
+        <span class="nav-indicator"></span>
+    </nav>
+
+
+    <script>
+        var active_page = 'accueil';
+    </script>
+
+    <div class="content">
+        <h1 class="team-title">Qui sommes-nous ?</h1>
+        <div class="team-info">
+            <h2 class="sub-title">Notre équipe</h2>
+            <p class="team-description">
+                Nous sommes 5 étudiants ingénieurs à l'ESME Sudria, en 5ème et dernière année.
+                Nous avons décidé de collaborer dans le cadre de notre projet de fin d'étude pour créer un site internet qui analyse les vidéos "deepfakes".
+            </p>
+        </div>
+        <div class="team-container">
+            <div class="team-members">
+                <div class="team-member">
+                    <div class="photo-container">
+                        <img src="{{ url_for('static', filename='images/student1.jpg') }}" alt="Photo de l'étudiant 1">
+                    </div>
+                    <div class="info-container">
+                        <div class="name">Belén CHEVALIER</div>
+                        <div class="profession">Ingénieure réseaux et sécurité chez Nomios</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="photo-container">
+                        <img src="{{ url_for('static', filename='images/student2.jpg') }}" alt="Photo de l'étudiant 2">
+                    </div>
+                    <div class="info-container">
+                        <div class="name">Rayane CHOUAREF</div>
+                        <div class="profession">Ingénieur chez Thales</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="photo-container">
+                        <img src="{{ url_for('static', filename='images/student3.jpg') }}" alt="Photo de l'étudiant 3">
+                    </div>
+                    <div class="info-container">
+                        <div class="name">Eva ENJOLRAS</div>
+                        <div class="profession">Ingénieure chargée d’affaire chez Oïko</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="photo-container">
+                        <img src="{{ url_for('static', filename='images/student4.jpg') }}" alt="Photo de l'étudiant 4">
+                    </div>
+                    <div class="info-container">
+                        <div class="name">Milan OBRENOVITCH</div>
+                        <div class="profession">Ingénieur réseaux et sécurité chez Nomios</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="photo-container">
+                        <img src="{{ url_for('static', filename='images/student5.jpg') }}" alt="Photo de l'étudiant 5">
+                    </div>
+                    <div class="info-container">
+                        <div class="name">Servane ZUILI</div>
+                        <div class="profession">Ingénieure assistante projet chez IoThink Solutions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="our-history-container">
+            <h2>Notre histoire</h2>
+            <div class="our-history-text">
+                <p>
+                    Etudiants apprentis en dernière année d’école d’ingénieur à ESME Sudria, en master de "management et architecture des Systèmes d’Information", nous avons réalisé notre projet de fin d’étude. C’est une application qui permet de détecter des vidéos falsifiées (détection de Deepfakes).
+                </p>
+                <p>
+                    Dans un contexte social, politique et économique tendu où la manipulation de vidéos, images et discours est simplifiée, nous avons voulu créer une application qui nous permet de détecter ces deepfakes.
+                </p>
+                <p>
+                    L’objectif de VerifEye c’est aussi :
+                </p>
+                <ul>
+                    <li>Sensibiliser à la manipulation de vidéos</li>
+                    <li>Apprendre à avoir un esprit critique sur les informations données dans des médias</li>
+                    <li>Créer un monde numérique plus sûr</li>
+                    <li>Mettre à disposition un outil de détection de deep fakes utile dans des environnements éducatif, professionnel et médiatique.</li>
+                </ul>
+                <p>
+                    Pour mener à bien ce projet nous sommes un groupe de 5 étudiants :
+                </p>
+                <ul>
+                    <li>Belén CHEVALIER: ingénieure réseaux et sécurité chez Nomios</li>
+                    <li>Rayane CHOUAREF: ingénieur chez Thales</li>
+                    <li>Eva ENJOLRAS: Ingénieure chargée d’affaire chez Oïko</li>
+                    <li>Milan OBRENOVITCH: ingénieur réseaux et sécurité chez Nomios</li>
+                    <li>Servane ZUILI: ingénieure assistante projet chez IoThink Solutions</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        
+    </script>
+</body>
+</html>

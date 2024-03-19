@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Votre titre</title>
+    <style>
+        body {
+            font-family: Arial, serif;
+            background-color: #060037; /* Couleur de fond */
+            color: #05BAC1; /* Couleur du texte */
+            margin: 0; /* Supprime les marges par défaut du corps */
+            padding: 0; /* Supprime les rembourrages par défaut du corps */
+        }
+
+        nav {
+            background-color: #060037;
+            display: flex;
+            justify-content: flex-start; /* Aligne la barre de navigation à gauche */
+            align-items: center;
+            padding: 10px;
+        }
+
+        nav img {
+            width: 90px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .navbar {
+            color: #05BAC1;
+            padding: 14px 16px;
+            text-decoration: none;
+            margin: 0 5px;
+            position: relative;
+            font-size: 18px; /* Taille de police augmentée */
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #05BAC1;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .navbar.active {
+            color: #05BAC1;
+            border-bottom: 3px solid #05BAC1; /* Ajoute une bordure en bas pour indiquer la page active */
+        }
+
+        .navbar:hover {
+            color: #05BAC1;
+            border-bottom: 3px solid #05BAC1; /* Ajoute une bordure en bas pour indiquer le survol */
+        }
+
+
+        .contentdialogue {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .active {
+        color: #fff; /* Couleur du texte lorsque l'élément est actif */
+        }
+
+        .container {
+            display: flex; /* Utilisation de flexbox pour aligner les éléments */
+            justify-content: space-around; /* Répartition de l'espace autour des éléments */
+            padding: 20px;
+        }
+
+        .left-section {
+            top: 200px;
+            left: 0; /* Aligner le côté gauche du conteneur avec le côté gauche de la fenêtre */
+            width: 23%; /* Largeur de 10% de la largeur de la fenêtre */
+            height: 100%; /* Hauteur égale à la hauteur de la fenêtre */
+            background-color: #28316B;
+            margin-left: 10px; /* Alignement du texte à gauche */
+            margin: 0; /* Réinitialiser les marges par défaut */
+            padding: 0; /* Réinitialiser les rembourrages par défaut */
+            border: none; /* Supprimer la bordure */
+        }
+
+
+        .center-section {
+            text-align: center; /* Alignement du texte au centre */
+        }
+
+        .right-section {
+            text-align: right; /* Alignement du texte à droite */
+        }
+
+        .image {
+            max-width: 100%; /* Assurez-vous que l'image ne dépasse pas la largeur de sa conteneur */
+            height: auto; /* Hauteur automatique pour conserver les proportions de l'image */
+            border-radius: 0px; /* Bords arrondis pour l'image */
+        }
+
+        .content {
+            margin-top: 20px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a6c;
+            color: #05bac1;
+            border-radius: 0px;
+            text-align: left; /* Aligne le texte à gauche à l'intérieur du conteneur */
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #05BAC1;
+            border-radius: 0px;
+            box-sizing: border-box;
+        }
+
+        .form-container button {
+            background-color: #05BAC1;
+            color: #060037;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 0px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #060037;
+            color: #05BAC1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <img src="{{ url_for('static', filename='images/oeilsansfond.png') }}" alt="Logo">
+        <a href="/" class="navbar">Accueil</a>
+        <a href="/video" class="navbar">Votre vidéo</a>
+        <a href="/youtube" class="navbar">Youtube</a>
+        <a href="/equipe" class="navbar">Notre équipe</a>
+        <a href="/contact" class="navbar active">Nous contacter</a>
+        <span class="nav-indicator"></span>
+    </nav>
+
+    <script>
+        var active_page = 'accueil';
+    </script>
+
+    <div class="contentdialogue">
+        <h1>Discutons</h1>
+    </div>
+
+    <div class="container">
+        <div class="left-section"> <br>
+            <h4>Adresse</h3> 
+            <h5>38 Rue Molière</h5>
+            <h5>94200 Ivry-sur-Seine</h5> <br>
+            <h4>Téléphone</h4>
+            <h5>01 23 45 67 89</h5> <br>
+            <h4>E-mail</h4>
+            <h5>info@verifeye.fr</h5>
+        </div>
+        <div class="center-section">
+            <div class="content">
+                <div class="form-container">
+                    <h1>Contactez-nous</h1>
+                    <form action="/submit_contact" method="post">
+                        <label for="firstName">Prénom </label>
+                        <input type="text" id="firstName" name="firstName" required>
+        
+                        <label for="lastName">Nom </label>
+                        <input type="text" id="lastName" name="lastName" required>
+        
+                        <label for="email">Email </label>
+                        <input type="email" id="email" name="email" required>
+        
+                        <label for="message">Message </label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+        
+                        <button type="submit">Envoyer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="right-section">
+            <img src="images/esmelogo.png" class="image">
+        </div>
+    </div>
+
+    <script> 
+        
+    </script>
+</body>
+</html>

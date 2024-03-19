@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family:Arial, Helvetica, sans-serif;
+            text-align: center; /* Centre le contenu de la page */
+            background-color: #060037; /* Couleur de fond */
+            color: #05BAC1; /* Couleur du texte */
+            margin:0;
+            padding:0;
+            font-weight: lighter;
+        }
+           
+        nav {
+            background-color: #060037;
+            display: flex;
+            justify-content: flex-start; /* Aligne la barre de navigation à gauche */
+            align-items: center;
+            padding: 10px;
+        }
+
+        nav img {
+            width: 90px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .navbar {
+            color: #05BAC1;
+            padding: 14px 16px;
+            text-decoration: none;
+            margin: 0 5px;
+            position: relative;
+            font-size: 18px; /* Taille de police augmentée */
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #05BAC1;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .navbar.active {
+            color: #05BAC1;
+            border-bottom: 3px solid #05BAC1; /* Ajoute une bordure en bas pour indiquer la page active */
+        }
+
+        .navbar:hover {
+            color: #05BAC1;
+            border-bottom: 3px solid #05BAC1; /* Ajoute une bordure en bas pour indiquer le survol */
+        }
+
+        button {
+            border: none;
+            }
+
+        .c-button {
+            background: transparent;
+            border-radius: 45px;
+            font-size: 18px;
+            text-align: left;
+            padding: 11px 0px 11px 0px;
+            border: 2px #fff;
+            border-style: outset;
+            box-shadow: -6px -5px 18px rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            margin-top: 2%;
+            }
+
+        .c-button .c-main {
+            border-radius: 45px;
+            color: #ffffff;
+            padding: 11px 25px 11px 2px;
+            transition: all 0.5s ease-in-out;
+            border: none;
+            }
+
+        .c-ico .c-blur {
+            background: transparent;
+            border-radius: 100%;
+            border: 1px #ffffff;
+            margin-left: 0;
+            padding: 10px 25px;
+            text-align: center;
+            }
+
+        .c-ico {
+            position: relative;
+            margin-right: 20px;
+            }
+
+        .c-ico .ico-text {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            }
+
+            /* Hovering */
+
+        .c-button .c-main:hover {
+            box-shadow: inset 0px 0px 6px #06888d;
+            border: 3px solid #05BAC1;
+            color: #05BAC1;
+            }
+
+        .content img{
+            width: 550px; /* Ajuste la largeur de l'image */
+            height: auto; /* Garantit que la hauteur est ajustée proportionnellement */
+            margin-right: center;
+            margin-top: 2%;
+        }
+
+        .content2 img{
+            width: 550px; /* Ajuste la largeur de l'image */
+            height: auto; /* Garantit que la hauteur est ajustée proportionnellement */
+            margin-right:center;
+            margin-top: 2%;
+        }
+
+        .content1 img{
+            width: 50px; /* Ajuste la largeur de l'image */
+            height: auto; /* Garantit que la hauteur est ajustée proportionnellement */
+            margin-right:auto;
+            margin-top: 6%;
+        }
+
+        .upload-container {
+            text-align: center;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column; /* Définit la disposition des éléments enfants en colonnes */
+            align-items: center; /* Centre les éléments horizontalement */
+        }
+
+        .upload-container button.launch {
+            margin-top: 17px;
+            position: center;
+        }
+
+        .form button.launch{
+            margin-top: 150px;
+            margin-left: -265px;
+        }
+        
+        button {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            outline: none;
+            border: 0;
+            vertical-align: middle;
+            text-decoration: none;
+            background: transparent;
+            padding: 0;
+            font-size: inherit;
+            font-family: inherit;
+        }
+
+        button.launch {
+            width: 12rem;
+            height: auto;
+        }
+
+        button.launch .circle {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            position: relative;
+            display: block;
+            margin: 0;
+            width: 3rem;
+            height: 3rem;
+            background: #05BAC1;
+            border-radius: 1.625rem;
+        }
+
+        button.launch .circle .icon {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            background: #fff;
+        }
+
+        button.launch .circle .icon.arrow {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            left: 0.625rem;
+            width: 1.125rem;
+            height: 0.125rem;
+            background: none;
+        }
+
+        button.launch .circle .icon.arrow::before {
+            position: absolute;
+            content: "";
+            top: -0.29rem;
+            right: 0.0645rem;
+            width: 0.625rem;
+            height: 0.625rem;
+            border-top: 0.125rem solid #fff;
+            border-right: 0.125rem solid #fff;
+            transform: rotate(45deg);
+        }
+
+        button.launch .button-text {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            position: absolute;
+            top: 0;
+            left: 20px;
+            right: 0;
+            bottom: 0;
+            padding: 0.75rem 0;
+            margin: 0 0 0 1.85rem;
+            color: #fff;
+            font-weight: lighter;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        button:hover .circle {
+            width: 100%;
+        }
+
+        button:hover .circle .icon.arrow {
+            background: #fff;
+            transform: translate(1rem, 0);
+        }
+
+        button:hover .button-text {
+            color: #fff;
+        }
+
+        .upload-container p.color-change {
+            color: #05BAC1;
+        }
+
+        /* styling of whole input container */
+        .form {
+            --timing: 0.3s;
+            --width-of-input: 340px; /* Largeur modifiée */
+            --height-of-input: 40px; /* Hauteur modifiée */
+            --border-height: 2px;
+            --input-bg: #fff;
+            --border-color: #05BAC1;
+            --border-radius: 30px;
+            --after-border-radius: 1px;
+            position: relative; /* Changement de position à absolue */
+            top: 50%; /* Positionnement à 50% du haut */
+            left: 50%; /* Positionnement à 50% du gauche */
+            transform: translate(-50%, -50%); /* Décalage de 50% vers le haut et 50% vers la gauche pour centrer */
+            width: var(--width-of-input);
+            height: var(--height-of-input);
+            display: flex;
+            align-items: center;
+            padding-inline: 0.8em;
+            border-radius: var(--border-radius);
+            transition: border-radius 0.5s ease;
+            background: var(--input-bg, #fff);
+            margin-top: 45px; /* Espace au-dessus */
+            }
+
+        /* styling of Input */
+        .input {
+            font-size: 0.9rem;
+            font-style: italic;
+            background-color: transparent;
+            width: 100%;
+            height: 100%;
+            padding-inline: 0.5em;
+            padding-block: 0.7em;
+            border: none;
+        }
+        /* styling of animated border */
+        .form:before {
+            content: "";
+            position: absolute;
+            background: var(--border-color);
+            transform: scaleX(0);
+            transform-origin: center;
+            width: 100%;
+            height: var(--border-height);
+            left: 0;
+            bottom: 0;
+            border-radius: 1px;
+            transition: transform var(--timing) ease;
+        }
+        /* Hover on Input */
+        .form:focus-within {
+            border-radius: var(--after-border-radius);
+        }
+
+        input:focus {
+            outline: none;
+        }
+        /* here is code of animated border */
+        .form:focus-within:before {
+            transform: scale(1);
+        }
+        /* styling of close button */
+        /* == you can click the close button to remove text == */
+        .reset {
+            border: none;
+            background: none;
+            opacity: 0;
+            visibility: hidden;
+            margin-left: -50px;
+        }
+        /* close button shown when typing */
+        input:not(:placeholder-shown) ~ .reset {
+            opacity: 1;
+            visibility: visible;
+        }
+        /* sizing svg icons */
+        .form svg {
+            width: 17px;
+            margin-top: 3px;
+        }
+
+        .button-download {
+            display: flex; /* Utiliser Flexbox pour aligner les éléments horizontalement */
+            align-items: center; /* Aligner les éléments verticalement */
+            justify-content: center; /* Aligner les éléments horizontalement */
+            padding: 0.75rem 1.5rem;
+            background-color:transparent;
+            color: #ffffff;
+            font-size: 0.82rem;
+            line-height: 1rem;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            vertical-align: middle;
+            border: 1px solid #322979;
+            border-radius: 0.5rem;
+            user-select: none;
+            gap: 0.75rem;
+            box-shadow: 0 4px 6px -1px #488aec31, 0 2px 4px -1px #488aec17;
+            transition: all .6s ease;
+        }
+
+        .button-download:hover {
+            color:#05BAC1;
+            border-color:#05BAC1;
+            border:1%;
+            border-radius: 0%;
+            box-shadow: 0 10px 15px -3px #488aec4f, 0 4px 6px -2px #488aec17;
+        }
+
+        .button-download:focus,button:active {
+            opacity: .85;
+            box-shadow: none;
+        }
+
+        .button-download svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+
+        #fileName {
+            color: #05BAC1;
+            font-weight: lighter;
+            margin-left: 10px; /* Espacement entre le bouton et le nom du fichier */
+        }
+
+
+/*Spinner de chargement*/
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            height: 100px;
+            width: 100px; 
+            animation: rotate_3922 1.2s linear infinite;
+            background-color: #9b59b6;
+            background-image: linear-gradient(#9b59b6, #84cdfa, #5ad1cd);
+            display:none;
+        }
+
+        .container.show {
+            display: block;
+        }
+
+        .container span {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            border-radius: 50%;
+            height: 100%; 
+            width: 100%; 
+            background-color: #9b59b6;
+            background-image: linear-gradient(#9b59b6, #84cdfa, #5ad1cd);
+        }
+
+        .container span:nth-of-type(1) {
+            filter: blur(5px); 
+        }
+
+        .container span:nth-of-type(2) {
+            filter: blur(10px); 
+        }
+
+        .container span:nth-of-type(3) {
+            filter: blur(25px); 
+        }
+
+        .container span:nth-of-type(4) {
+            filter: blur(50px);
+        }
+
+        .container::after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background-color: #060037; /* Couleur de fond de l'ombre */
+            border: solid 5px #060037; /* Bordure de l'ombre */
+            border-radius: 50%;
+        }
+
+        @keyframes rotate_3922 {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+    </style>
+    <title>Votre vidéo</title>
+</head>
+<body>
+    <nav>
+        <img src="{{ url_for('static', filename='images/oeilsansfond.png') }}" alt="Logo">
+        <a href="/" class="navbar">Accueil</a>
+        <a href="/video" class="navbar active">Votre vidéo</a>
+        <a href="/youtube" class="navbar">Youtube</a>
+        <a href="/equipe" class="navbar">Notre équipe</a>
+        <a href="/contact" class="navbar">Nous contacter</a>
+        <span class="nav-indicator"></span>
+    </nav>
+
+    <div class="content">
+        <img src="{{ url_for('static', filename='images/entrezunlienurl.png') }}" alt="Saisissez un lien URL">
+    </div>
+
+    <form action="/process_youtube_url" method="post" enctype="multipart/form-data" class="form">
+        <button>
+            <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="search">
+                <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9" stroke="#060037" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </button>
+
+        <input class="input" placeholder="Lien URL" required="" type="text" name="youtube_url">
+        
+        <button class="reset" type="reset">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#060037" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <button class="launch" type="submit" name="url">
+            <span class="circle" aria-hidden="true">
+            <span class="icon arrow"></span>
+            </span>
+            <span class="button-text">Lancer l'analyse</span>
+        </button>
+    </form>
+
+    <div class="content1">
+        <img src="{{ url_for('static', filename='images/ou.png') }}" alt="ou">
+    </div>
+
+    <div class="content">
+        <img src="{{ url_for('static', filename='images/Testezvotrevideo.png') }}" alt="Testez votre video">
+    </div>
+
+    
+    <form action="/uploads" method="post" enctype="multipart/form-data" class="upload-container">
+        <label for="videoFile" class="button-download">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H11M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125" stroke="#fffffff" stroke-width="2"></path>
+                <path d="M17 15V18M17 21V18M17 18H14M17 18H20" stroke="#fffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <span>Télécharger une vidéo</span> <!-- Déplacer le texte à l'intérieur de la balise span -->
+        </label>
+        
+        <input type="file" name="file" id="videoFile" accept=".mp4" style="display: none;">
+        <p id="fileName"></p>
+
+        <button type ="submit" class="launch">
+            <span class="circle" aria-hidden="true">
+                <span class="icon arrow"></span>
+            </span>
+            <span class="button-text">Analyser la vidéo</span>
+        </button>
+    </form>
+
+    <div class="container" id="loadingContainer"></div>
+
+    <script>
+        
+        </script>
+</body>
+</html>
